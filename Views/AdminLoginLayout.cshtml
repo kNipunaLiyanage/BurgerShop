@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+
+    <link href="~/Admin/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Admin/assets/css/plugins.css" rel="stylesheet" />
+    <link href="~/Admin/assets/css/authentication/form-1.css" rel="stylesheet" />
+
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <link href="~/Admin/assets/css/forms/theme-checkbox-radio.css" rel="stylesheet" />
+    <link href="~/Admin/assets/css/forms/switches.css" rel="stylesheet" />
+
+    <div>
+        @RenderBody()
+    </div>
+
+
+    <script src="~/Admin/assets/js/libs/jquery-3.1.1.min.js"></script>
+    <script src="~/Admin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Admin/bootstrap/js/popper.min.js"></script>
+
+
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+    <script src="~/Admin/assets/js/authentication/form-1.js"></script>
+</body>
+</html>

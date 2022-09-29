@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "AdminLogin";
+    Layout = "~/Views/AdminLoginLayout.cshtml";
+}
+
+<div class="form-container">
+    <div class="form-form">
+        <div class="form-form-wrap">
+            <div class="form-container">
+                <div class="form-content">
+
+                    <h1 class="">Log In to <a href=""><span class="brand-name">E-Burger</span></a></h1>
+                    <div class="text-left">
+                        <div class="form">
+
+                            <div id="username-field" class="field-wrapper input">
+                                <input id="username" name="username" type="text" class="form-control" placeholder="Username">
+                            </div>
+                            <br>
+                            <br>
+                            <div id="password-field" class="field-wrapper input mb-2">
+                                <input id="password" name="password" type="password" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="d-sm-flex justify-content-between">
+                                <div class="field-wrapper toggle-pass">
+                                    <p class="d-inline-block">Show Password</p>
+                                    <label class="switch s-primary">
+                                        <input type="checkbox" id="toggle-password" class="d-none">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <div class="field-wrapper">
+                                    <button type="button" class="btn btn-primary" onclick="loginAdmin()">Log In</button>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-image">
+        <div>
+            <img src="~/img/logphoto.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #060818; background-position: center center; background-repeat: no-repeat; background-size: 75%; background-position-x: center; background-position-y: center;">
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+
+    function loginAdmin() {
+
+        var uname = $('#username').val();
+        var pw = $('#password').val();
+        if (uname == "" || pw == "") {
+
+            swal("Error!", "Please Fill all feilds...!", "error");
+        } else {
+
+            $.post("GoTOAdminLogz",
+                {
+                    uname: uname,
+                    pw: pw
+
+                },
+                function (data, status) {
+
+                    if (data == "ok") {
+                        swal("Login Sucess ...!", {
+                            icon: "success",
+                        });
+                        window.location = "AdminHome";
+                    } else {
+                        swal("Error!", "Invalid Login Details", "error");
+                    }
+
+                });
+
+        }
+
+
+
+    }
+
+
+</script>
+

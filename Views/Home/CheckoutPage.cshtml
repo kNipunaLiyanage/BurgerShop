@@ -1,0 +1,204 @@
+﻿
+@{
+    ViewBag.Title = "CheckoutPage";
+    Layout = "~/Views/Checkoutlayout.cshtml";
+}
+@model List<BurgerShop.Models.CartItemsModel>
+
+<div id="content">
+    <!-- My Account
+    ============================================= -->
+    <section class="myaccount text-left padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 carts-content">
+                    <div class="row">
+                        <!-- Cart Total -->
+                        <div class="col-md-4 carts-total text-left">
+                            <h3>Carts Total</h3>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    @{
+
+                                        double totalprice = 0;
+                                    }
+                                    @foreach (var doc in Model)
+                                    {
+
+
+                                        double qq = doc.Qty;
+                                        double up = doc.Unitprice;
+                                        double fp = qq * up;
+                                        totalprice = totalprice + fp;
+
+                                        int loadcartid = doc.Cartidz;
+                                    }
+                                    <tr>
+                                        <td>Cart Subtotal</td>
+                                        <td>LKR @totalprice</td>
+                                    </tr>
+
+                                    @{
+
+                                        double finalp = @totalprice + 200;
+                                    }
+                                    <tr>
+                                        <td>Shipping and Handling</td>
+                                        <td>LKR 200</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order Net Total</td>
+                                        <td id="finaltotnet">LKR @finalp</td>
+                                    </tr>
+                                    @foreach (var doc in Model)
+                                    {
+                                        <input type="hidden" id="cartingid" value="@doc.Cartidz" />
+                                        break;
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="calc-shipping margin-tb-60">
+                                <h3> Payment Method</h3>
+                                <div class="form-group">
+                                    <!-- Selct wrap -->
+                                    <div class="select_wrap dark_slect">
+                                        <select class="form-control">
+                                            <option value="">Cash on delivery</option>>
+                                        </select>
+                                    </div>
+                                    <!-- End select wrap -->
+                                </div>
+                            </div>
+                            <!-- Carts total -->
+                        </div>
+                        <!-- End # Cart Total -->
+                        <!-- Shipping Address -->
+                        <div class="col-md-8">
+                            <div class="calc-shipping">
+                                <h3>Delivery Details</h3>
+                                <div class="form-group">
+                                    <!-- Selct wrap -->
+                                    <div class="select_wrap dark_slect">
+                                        <select class="form-control" id="txtcity">
+                                            <option value="">Select City</option>
+                                            <option>Matara</option>
+                                            <option>Weligama</option>
+                                            <option>Akuressa</option>
+                                            <option>Urubokka</option>
+                                            <option>Morawaka</option>
+                                        </select>
+                                    </div>
+                                    <!-- End select wrap -->
+                                    <input type="text" class="form-control" id="txtname" placeholder="Name in full*">
+                                    <input type="text" class="form-control" placeholder="Phone Number*" id="txtcontact">
+                                    <textarea class="form-control" placeholder="Address" id="txtaddress"></textarea>
+                                    <br>
+                                    <br>
+                                    <form action="ViewUserCart" method="get">
+                                        <button type="submit" class="btn btn-info" style="width:100%;">Go back to Cart</button>
+                                    </form>
+                                    <br>
+                                    <br>
+                                    <button type="submit" class="btn btn-success" style="width:100%;" onclick="proceedorder()">Order Now</button>
+                                </div>
+                            </div>
+                            <!-- Shipping Address -->
+                        </div>
+                        <!-- Billing Details -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End myaccount -->
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/javascripts/libs/plugins.js"></script>
+<!-- JS Plugins -->
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="~/javascripts/libs/modernizr.js"></script>
+<!-- JS Custom Codes -->
+<script src="javascripts/custom/main.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+
+    function proceedorder() {
+
+        var city = $('#txtcity').val();
+        var nameinfull = $('#txtname').val();
+        var contact = $('#txtcontact').val();
+        var address = $('#txtaddress').val();
+        var cartid = $('#cartingid').val();
+        var finalnettotal = $('#finaltotnet').text();
+
+        if (nameinfull == "" || contact == "" || address == "" || cartid == "") {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Please fill all details..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+        } else if (city == "Select City") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Please select valid city..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+
+        } else if (!(contact.length == 10)) {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Please Enter Valid phone Number..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+        } else {
+
+            $.post("placeNeworder",
+                {
+                    cartid: cartid,
+                    city: city,
+                    nameinfull: nameinfull,
+                    contact: contact,
+                    addressz: address,
+                    totalp: finalnettotal
+
+                },
+                function (data, status) {
+
+                    if (data == "ok") {
+
+                        Swal.fire({
+                            icon: 'sucess',
+                            title: 'Order Placed..!',
+                            showConfirmButton: true,
+                            timer: 1500
+                        });
+
+                        window.location = "";
+
+                    } else {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: '' + data,
+                            showConfirmButton: true,
+                            timer: 1500
+                        });
+
+                    }
+
+                });
+
+        }
+
+
+    }
+</script>
+

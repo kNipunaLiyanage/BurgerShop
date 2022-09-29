@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "LoadMenu";
+    Layout = "~/Views/MenuLayoutz.cshtml";
+}
+@model List<BurgerShop.Models.StockModel>
+<div id="content">
+    <!-- Menu Grid
+    ============================================= -->
+    <div class="menu_grid our-menu text-center padding-b-70">
+        <!-- Menu Bar -->
+        <div class="menu-bar dark">
+            <!-- menu Filter
+                        ============================================= -->
+            <!-- #menu-filter end -->
+        </div>
+        <!-- End menu bar -->
+        <!-- Menu Items
+                      ============================================= -->
+        <div class="container mt60">
+
+            <div id="menu-items" class="masonry-content menu-type dark clearfix">
+                @foreach (var doc in Model)
+                {
+                    <form action="SinglemenuItem" method="post">
+                        <article class="menu-item col-md-4 col-sm-6 col-xs-12 pf-desert">
+                            <!-- Overlay Content -->
+                            <div class="overlay_content overlay-menu">
+                                <!-- Overlay Item -->
+
+
+                                <div class="overlay_item">
+                                    <span class="label">@doc.Size</span> <img src="~/img/menu/desert/desert1.jpg" alt="">
+                                    <!-- Overlay -->
+                                    <div class="overlay">
+                                        <!-- Icons -->
+                                        <div class="icons">
+                                            <h3>@doc.Itemname</h3>
+                                            <h3> LKR @doc.Unitprice</h3>
+                                            <!-- Rating -->
+                                            <input type="hidden" value="@doc.Idstock" name="txtAmount">
+
+                                            <div class="button">
+                                                <button class="btn btn-info" type="submit">
+                                                    View Details
+                                                </button>
+                                            </div>
+                                            <!-- End Buttons -->
+                                            <a class="close-overlay hidden">x</a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+                    </form>
+                }
+            </div>
+            
+            <center>
+                @if (string.IsNullOrEmpty(Session["uname"] as String))
+                        {
+
+                        }
+                        else
+                        {
+                    <form action="ViewUserCart" method="get">
+                            
+                                <button type="submit" class="btn-lg btn-warning">Goto Your Cart</button>
+                    </form>
+                }
+            </center>
+        </div>
+        <!-- #menu end -->
+        <!-- End Menu Grid -->
+    </div>
+</div>
+
+
+<!-- JS Custom Codes -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/javascripts/libs/plugins.js"></script>
+<!-- JS Plugins -->
+<script src="~/javascripts/libs/modernizr.js"></script>
+<!-- JS Custom Codes -->
+<script src="~/javascripts/custom/main.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+    //function ViewSingleItem(zz) {
+
+
+
+
+    //    var itemid = zz;
+    //    alert(itemid);
+    //    $.post("SinglemenuItem",
+    //        {
+    //            idstock: itemid
+
+    //        },
+    //        function (data, status) {
+
+    //        });
+
+
+
+
+
+    //}
+
+</script>

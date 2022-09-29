@@ -1,0 +1,207 @@
+﻿
+@{
+    ViewBag.Title = "CreateAccount";
+    Layout = "~/Views/registerlayout.cshtml";
+}
+
+
+<div id="content">
+    <!-- Our Register
+    ============================================= -->
+    <section class="contact text-center padding-100">
+        <div class="container">
+            <div class="row">
+                <!-- Head Title -->
+                <div class="head_title">
+                    <i class="icon-intro"></i>
+                    <h1>Register</h1>
+                    <span class="welcome">Apply your information</span>
+                </div>
+                <!-- End# Head Title -->
+                <!-- Contact form -->
+                <div class="col-md-12">
+                    <div class="contact-form">
+                        
+                            <!-- Form Group -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4 col-sx-12">
+                                        <!-- Element -->
+                                        <div class="element">
+                                            <input type="text" id="para1" class="form-control" style="text-transform:lowercase;" placeholder="Full Name *" />
+                                        </div>
+                                        <!-- End Element -->
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-sx-12">
+                                        <!-- Element -->
+                                        <div class="element">
+                                            <input type="text" id="para2" class="form-control" style="text-transform:lowercase;" placeholder="E-mail *" />
+                                        </div>
+                                        <!-- End Element -->
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-sx-12">
+                                        <!-- Element -->
+                                        <div class="element">
+                                            <input type="text" id="para3" class="form-control text" style="text-transform:lowercase;" placeholder="Contact" />
+                                        </div>
+                                        <!-- End Element -->
+                                    </div>
+
+
+                                    <div class="col-md-4 col-sm-4 col-sx-12">
+                                        <!-- Element -->
+                                        <div class="element">
+                                            <select class="form-control" id="para4">
+                                                <option>Select City</option>
+                                                <option>Matara</option>
+                                                <option>Colombo</option>
+                                                <option>Galle</option>
+                                                <option>Gampaha</option>
+                                            </select>
+                                        </div>
+                                        <!-- End Element -->
+                                    </div>
+
+
+                                    <!-- Element -->
+                                    <div class="col-md-12 col-sm-12">
+                                        <!-- Element -->
+                                        <div class="element">
+                                            <textarea id="para5" class="text textarea" placeholder="Address" style="text-transform:lowercase;"></textarea>
+                                        </div>
+                                        <!-- End Element -->
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <div class="col-md-4 col-sm-4 col-sx-12">
+                                        <!-- Element -->
+                                        <div class="element">
+                                            <input type="password" id="parapa1" class="form-control"  placeholder="Password *" />
+                                        </div>
+                                        <!-- End Element -->
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-sx-12">
+                                        <!-- Element -->
+                                        <div class="element">
+                                            <input type="password" id="parapa2" class="form-control"  placeholder="Confirm Password *" />
+                                        </div>
+                                        <!-- End Element -->
+                                    </div>
+                                    <!-- End Element -->
+                                </div>
+                            </div>
+                            <!-- End form group -->
+                            <!-- Element -->
+                            <div class="element">
+                                <button type="button" id="saveuser" value="Send" class="btn btn-black">register</button>
+                                <div class="loading"></div>
+                            </div>
+                            <!-- End Element -->
+                        
+                        <div class="done mt30"> <strong>Thank you!</strong> We have received your message. </div>
+                    </div>
+                </div>
+                <!-- End contact form -->
+            </div>
+        </div>
+    </section>
+    <!-- End Register -->
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+
+    $('#saveuser').click(function () {
+
+        
+
+        var nameinfull = $('#para1').val();
+        var emailz = $('#para2').val();
+        var contactnumber = $('#para3').val();
+        var city = $('#para4').val();
+        var addressz = $('#para5').val();
+
+        var pw1 = $('#parapa1').val();
+        var pw2 = $('#parapa2').val();
+
+        if (nameinfull == "" || emailz == "" || contactnumber == "" || addressz == "" || pw1 == "" || pw2 == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'please Fill All Feilds..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+        }  else if (city == "Select City") {
+            Swal.fire({
+                icon: 'error',
+                title: 'please Select valid city..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+        } else if (!(contactnumber.length == 10)) {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Please Enter Valid phone Number..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+        } else if (!(pw1 == pw2)) {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Passwords are not matched..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+
+        } else {
+
+            $.post("Usr",
+                {
+                    nameinfull: nameinfull,
+                    emailz: emailz,
+                    contactnumber: contactnumber,
+                    city: city,
+                    addressz: addressz,
+                    pw: pw1
+
+                },
+                function (data, status) {
+
+                    if (data == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'user Registered Sucessfull..!',
+                            showConfirmButton: true,
+                            timer: 1500
+                        });
+
+                        window.location = "CreateAccount";
+                    } else if (data == "alre") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'This email is already in use..!',
+                            showConfirmButton: true,
+                            timer: 1500
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Something Went Wrong..!',
+                            showConfirmButton: true,
+                            timer: 1500
+                        });
+                    }
+
+                });
+
+        }
+
+
+
+    })
+
+</script>
+

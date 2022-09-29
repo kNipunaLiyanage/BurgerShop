@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+<div id="content">
+    <!-- welcome block
+    ============================================= -->
+    <section class="padding-100 welcome-block">
+        <div class="container">
+            <div class="row">
+                <!-- Center Img Intro -->
+                <div class="col-md-12 center-block mb30"> <img class="img-responsive" src="~/img/themes/burger/right_img.jpg" alt=""> </div>
+                <!-- End Center Img Intro -->
+                <!-- Intro Text Center -->
+                <div class="col-md-12 text-center">
+                    <!-- Head Title -->
+                    <div class="head_title">
+                        <i class="icon-intro"></i>
+                        <h1>BURGER KINGDOM</h1>
+                        <span class="welcome">Welcome to E-Burger</span>
+                    </div>
+                    <!-- End# Head Title -->
+                    <p>Since our modest beginnings in 2021 with a little space in , E-Burger’s development has been enlivened with the energy to cook and serve takeout Burgers. In contrast to other eateries, E-Burger was made with the explicit expectation to appear as something else.</p>
+                    <a href="" class="btn btn-gold">READ MORE</a>
+                </div>
+                <!-- End intro center -->
+            </div>
+        </div>
+    </section>
+    <!-- End welcome block -->
+    <!-- Discover
+    ============================================= -->
+    <section id="slide-2" class="discover dark text-center">
+        <!-- Parallax Bg -->
+        <div class="bcg background23"
+             data-center="background-position: 50% 0px;"
+             data-bottom-top="background-position: 50% 100px;"
+             data-top-bottom="background-position: 50% -100px;"
+             data-anchor-target="#slide-2">
+            <!-- Bg Transparent -->
+            <div class="bg-transparent padding-100">
+                <div class="container">
+                    <h1>WE CREATE DELICOUS MEMORIES</h1>
+                    <p class="text-uppercase">You can promote your creative parallax effects</p>
+                    <a href="" class="btn btn-gold white">DISCOVER MORE</a>
+                </div>
+            </div>
+            <!-- End Bg transparent -->
+        </div>
+        <!-- End Parallax Bg -->
+    </section>
+    <!-- End Discover -->
+    <!-- Menu Today
+    ============================================= -->
+    <div class="menu_today dark padding-100">
+        <div class="container">
+            <div class="row">
+                <!-- Menu Item -->
+                <div class="menu-item col-md-4 col-sm-4 col-xs-12">
+                    <figure>
+                        <img class="img-responsive" src="~/img/themes/burger/rest.jpg" alt="" />
+                        <figcaption class="text-center">
+                            <div class="fig_container">
+                                <h3>RELAXING AMBIENCE</h3>
+                                <p>Creating good mood</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+                <!-- End Menu Item -->
+                <!-- Menu Item -->
+                <div class="menu-item col-md-4 col-sm-4 col-xs-12">
+                    <figure>
+                        <img class="img-responsive" src="~/img/block2.jpg" alt="" />
+                        <figcaption class="text-center">
+                            <div class="fig_container">
+                                <h3>SUNDAY</h3>
+                                <p>We Open</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+                <!-- End Menu Item -->
+                <!-- Menu Item -->
+                <div class="menu-item col-md-4 col-sm-4 col-xs-12">
+                    <figure>
+                        <img class="img-responsive" src="~/img/themes/burger/diet.jpg" alt="" />
+                        <figcaption class="text-center">
+                            <div class="fig_container">
+                                <h3>DIET FOODS</h3>
+                                <p>We Offer Diet Food</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+                <!-- End Menu Item -->
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- End latest News-->
+</div>
+
+<script src="~/javascripts/libs/jquery.min.js" type="text/javascript"></script>
+<script src="~/javascripts/libs/plugins.js"></script>
+<!-- JS Plugins -->
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="~/javascripts/libs/modernizr.js"></script>
+<!-- JS Custom Codes -->
+<script src="~/javascripts/custom/main.js"></script>
+<!-- For This Pgae Only Zooming slider -->
+<!-- for this page only, Just change the images -->
+<script>
+    $(function ($) {
+        //BG SLIDESHOW WITH ZOOM EFFECT
+        $.mbBgndGallery.buildGallery({
+            containment: "#home-header",
+            timer: 6000,
+            effTimer: 20000,
+            controls: "#controls",
+            grayScale: false,
+            shuffle: true,
+            preserveWidth: false,
+            preserveTop: true,
+            effect: "zoom",
+            //effect:{enter:{transform:"scale("+(1+ Math.random()*2)+")",opacity:0},exit:{transform:"scale("+(Math.random()*2)+")",opacity:0}},
+
+            // If your server allow directory listing you can use:
+            // (however this doesn't work locally on your computer)
+
+            //folderPath:"testImage/",
+            // else:
+            images: [
+                "../img/background/styles/bg_1.jpg",
+                "../img/background/styles/bg_2.jpg",
+                "../img/background/styles/bg_3.jpg"
+            ],
+        });
+    });
+
+</script>

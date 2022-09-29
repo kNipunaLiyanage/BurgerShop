@@ -1,0 +1,274 @@
+﻿
+@{
+    ViewBag.Title = "ViewUserCart";
+    Layout = "~/Views/CartPagelayout.cshtml";
+
+}
+@model List<BurgerShop.Models.CartItemsModel>
+
+<div id="content">
+    <!-- Carts
+    ============================================= -->
+    <section class="carts text-center padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <!-- Table carts -->
+                    <table class="table table-striped table-responsive table-cart">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Meal type</th>
+                                <th>Suitable for</th>
+                                <th>Size</th>
+                                <th>Qty</th>
+                                <th>Unit Price</th>
+                                <th>Add One</th>
+                                <th>Remove One</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ 
+
+                                double totalprice = 0;
+                            }
+                            @foreach (var doc in Model)
+                            {
+                                double qq = doc.Qty;
+                                double up = doc.Unitprice;
+                                double fp = qq * up;
+                                totalprice = totalprice + fp;
+
+
+                                <tr>
+                                    <td><img src="~/img/carts/1.jpg" alt="">@doc.Itemname</td>
+                                    <td id="@string.Concat(doc.Idcartitems,"meal")">@doc.Mealtyepe</td>
+                                    <td id="@string.Concat(doc.Idcartitems,"suitable")">@doc.Suitablefor</td>
+                                    <td id="@string.Concat(doc.Idcartitems,"sizez")">@doc.Sizez</td>
+                                    <td> @doc.Qty </td>
+                                    <td> @doc.Unitprice </td>
+                                    <td> <button class="btn btn-success" onclick="addOneItem(@doc.Idcartitems)">Add One</button></td>
+                                    <td> <button class="btn btn-danger" onclick="removeoneitem(@doc.Idcartitems)">Remove One</button> </td>
+                                    <td>
+                                        
+                                        <span class="total">@fp</span>
+                                        <button class="pull-right" onclick="removeonesingleitem(@doc.Idcartitems)"><i class="fa fa-times"></i></button>
+                                    </td>
+
+                                    <input id="@string.Concat(doc.Idcartitems,"itz")" type="hidden" value="@doc.Itemname" />
+                                    <input type="hidden" value="@doc.Emailaddress" />
+                                    <input type="hidden" value="@doc.Cartidz" id="crtid" />
+                                </tr>
+                                
+
+
+                            }
+                        </tbody>
+                    </table>
+                    <!-- End Table carts  -->
+                </div>
+                <!-- Carts content -->
+                <div class="col-md-12 carts-content">
+                    <div class="row">
+                        <!-- Left side -->
+                        <div class="col-md-5 left-side">
+
+                            <!-- Carts total -->
+                            <div class="carts-total text-left margin-tb-60">
+                                <h3>Carts Total</h3>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td>Cart Subtotal</td>
+                                            <td>LKR @totalprice</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Delivery Chargers</td>
+                                            <td>Depend on the city you selected</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <br>
+                                
+                                <br>
+                                <button type="button" class="btn  btn-danger" onclick="removeall()" style="width:100%;">Remove All Items From Cart</button>
+                                <br> 
+                                <br> 
+                                <button type="submit" class="btn  btn-info" style="width:100%;" onclick="gotocheckout()">PROCEED TO CHECKOUT</button>
+                            </div>
+                            <!-- Carts total -->
+                        </div>
+                        <!-- End Left side -->
+                        <!-- Right side -->
+                        <!--End Right side -->
+                    </div>
+                </div>
+                
+                <!--End Carts content -->
+            </div>
+        </div>
+    </section>
+    <!-- End Carts -->
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/javascripts/libs/plugins.js"></script>
+<!-- JS Plugins -->
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="~/javascripts/libs/modernizr.js"></script>
+<!-- JS Custom Codes -->
+<script src="javascripts/custom/main.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+
+
+    function addOneItem(zz) {
+
+        var itemname = $('#' + zz + 'itz').val();
+        var mealtype = $('#' + zz + 'meal').text();
+        var mealsuitblefor = $('#' + zz + 'suitable').text();
+        var sizez = $('#' + zz + 'sizez').text();
+        
+        var cartid = $('#crtid').val();
+
+
+        $.post("addOneItemcart",
+            {
+                itemname: itemname,
+                mealtype: mealtype,
+                mealsuitblefor: mealsuitblefor,
+                sizez: sizez,
+                cartidz: cartid
+
+            },
+            function (data, status) {
+                
+                if (data == "lowaty") {
+                    swal("Error!", "No quantity on " + itemname + " on stock", "error");
+                } else {
+                    swal(itemname + " Added to Your Cart...!", {
+                        icon: "success",
+                    });
+                    
+                    window.location = "ViewUserCart";
+                }
+
+            });
+
+
+
+    }
+
+    function removeoneitem(zz) {
+
+        var itemname = $('#' + zz + 'itz').val();
+        var mealtype = $('#' + zz + 'meal').text();
+        var mealsuitblefor = $('#' + zz + 'suitable').text();
+        var sizez = $('#' + zz + 'sizez').text();
+
+        var cartid = $('#crtid').val();
+
+
+        $.post("removeOneItemcart",
+            {
+                itemname: itemname,
+                mealtype: mealtype,
+                mealsuitblefor: mealsuitblefor,
+                sizez: sizez,
+                cartidz: cartid
+
+            },
+            function (data, status) {
+
+                if (data == "lowaty") {
+                    swal("Error!", "You need to remove item ", "error");
+                } else {
+                    swal(" 1 item from " + itemname +"removed from Your Cart...!", {
+                        icon: "success",
+                    });
+                    window.location = "ViewUserCart";
+                }
+
+            });
+
+
+
+    }
+
+    function removeonesingleitem(zz) {
+
+        var itemname = $('#' + zz + 'itz').val();
+        var mealtype = $('#' + zz + 'meal').text();
+        var mealsuitblefor = $('#' + zz + 'suitable').text();
+        var sizez = $('#' + zz + 'sizez').text();
+
+        var cartid = $('#crtid').val();
+
+
+        $.post("removeSingleItemcart",
+            {
+                itemname: itemname,
+                mealtype: mealtype,
+                mealsuitblefor: mealsuitblefor,
+                sizez: sizez,
+                cartidz: cartid
+
+            },
+            function (data, status) {
+
+                if (data == "lowaty") {
+                    swal("Error!", "You need to remove item ", "error");
+                } else {
+                    swal(itemname + "removed from Your Cart...!", {
+                        icon: "success",
+                    });
+                    window.location = "ViewUserCart";
+                    
+                }
+
+            });
+
+
+
+    }
+
+    function gotocheckout() {
+
+        window.location = "CheckoutPage";
+    }
+
+    function removeall() {
+
+        let confirmAction = confirm("Are you sure to Remove all items from your cart ?");
+        if (confirmAction) {
+
+            var idz = "2";
+            $.post("RemoveallFromcart",
+                {
+                    idz: idz
+
+                },
+                function (data, status) {
+
+                    if (data == "ok") {
+                        swal("All Items removed from Your Cart...!", {
+                            icon: "success",
+                        });
+                        window.location = "LoadMenu";
+                        
+                    } else {
+                        swal("Error!", "Something went wrong " + data, "error");
+                    }
+
+                });
+
+        } 
+    }
+
+
+</script>
+
+

@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link href="~/stylesheets/themes/asian.css" rel="stylesheet" />
+    <link href="~/stylesheets/themes/bakery.css" rel="stylesheet" />
+    <link href="~/stylesheets/themes/burger.css" rel="stylesheet" />
+    <link href="~/stylesheets/themes/cafe.css" rel="stylesheet" />
+    <link href="~/stylesheets/themes/grill.css" rel="stylesheet" />
+    <link href="~/stylesheets/themes/pizza.css" rel="stylesheet" />
+    <a href="~/stylesheets/AjaxLoader.html"></a>
+    <link href="~/stylesheets/animate.css" rel="stylesheet" />
+    <link href="~/stylesheets/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/stylesheets/fullcalendar.css" rel="stylesheet" />
+    <link href="~/stylesheets/jquery.datetimepicker.css" rel="stylesheet" />
+    <link href="~/stylesheets/main-responsive.css" rel="stylesheet" />
+    <link href="~/stylesheets/main.css" rel="stylesheet" />
+    <link href="~/stylesheets/owl.carousel.css" rel="stylesheet" />
+    <link href="~/stylesheets/owl.theme.css" rel="stylesheet" />
+    <link href="~/stylesheets/prettyPhoto.css" rel="stylesheet" />
+
+    <link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <a href="~/bootstrap/fonts/glyphicons-halflings-regular.eot"></a>
+    <a href="~/bootstrap/fonts/glyphicons-halflings-regular.ttf"></a>
+    <a href="~/bootstrap/fonts/glyphicons-halflings-regular.woff"></a>
+    <a href="~/bootstrap/fonts/glyphicons-halflings-regular.woff2"></a>
+    <a href="~/bootstrap/fonts/glyphicons-halflings-regulard41d.eot"></a>
+
+    <a href="~/boxed/index_bg_color.html"></a>
+    <a href="~/boxed/index_bg_img.html"></a>
+    <a href="~/boxed/index01.html"></a>
+
+    <a href="~/fonts/font_icons/fontawesome-webfontd41d.eot"></a>
+    <a href="~/fonts/font_icons/fontawesome-webfonte0a5.eot"></a>
+    <a href="~/fonts/font_icons/fontawesome-webfonte0a5.ttf"></a>
+    <a href="~/fonts/font_icons/fontawesome-webfonte0a5.woff"></a>
+    <a href="~/fonts/font_icons/fontawesome-webfonte0a5.woff2"></a>
+    <a href="~/fonts/font_icons/icomoon3627.eot"></a>
+    <a href="~/fonts/font_icons/icomoon3627.ttf"></a>
+    <a href="~/fonts/font_icons/icomoon3627.woff"></a>
+    <a href="~/fonts/font_icons/icomoond41d.eot"></a>
+    <a href="~/fonts/glyphicons-halflings-regular.eot"></a>
+    <a href="~/fonts/glyphicons-halflings-regular.ttf"></a>
+    <a href="~/fonts/glyphicons-halflings-regular.woff"></a>
+    <a href="~/fonts/glyphicons-halflings-regular.woff2"></a>
+
+    <link href="~/fonts/fonts.css" rel="stylesheet" />
+    <script src="~/javascripts/custom/main.js"></script>
+    <script src="~/javascripts/custom/mbBgGallery_init.js"></script>
+    <script src="~/javascripts/libs/fullcalendar.min.js"></script>
+    <script src="~/javascripts/libs/jquery.countdown.min.js"></script>
+    <script src="~/javascripts/libs/jquery.min.js"></script>
+    <script src="~/javascripts/libs/jquery.plugin.min.js"></script>
+    <script src="~/javascripts/libs/modernizr.js"></script>
+    <script src="~/javascripts/libs/moment.min.js"></script>
+    <script src="~/javascripts/libs/plugins.js"></script>
+
+</head>
+<body>
+    <div id="wrapper">
+        <section id="home-header" class="zooming-slider dark fullheight">
+            <div class="bg-transparent fullheight">
+                <!-- Slider content -->
+                <div class="slider-content">
+                    <!-- Text Rotater -->
+                    <ul id="fade">
+                        <li>
+                            <h1>Come in & Taste</h1>
+                        </li>
+                        <li>
+                            <h1>most delicious food</h1>
+                        </li>
+                        <li>
+                            <h1>most delicious desserts</h1>
+                        </li>
+                    </ul>
+                    <!-- End Text Rotater -->
+                    <i class="icon-home-ico"></i>
+                    <p class="text-uppercase">We Create Sweet Memories</p>
+                </div>
+                <!-- End Slider content  -->
+            </div>
+        </section>
+
+        <header id="header" class="header-transparent">
+            <div class="container">
+                <div class="row">
+                    <div id="main-menu-trigger"><i class="fa fa-bars"></i></div>
+                    <!-- Logo
+                            ============================================= -->
+                    <div id="logo"> <a href="" class="light-logo"><img src="~/img/logz.png" alt="Logo"></a> <a href="" class="dark-logo"><img src="~/img/logz.png" alt="Logo"></a> </div>
+
+                    <nav id="main-menu" class="dark">
+                        <ul>
+                            <li>@Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("About us", "About", "Home", new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Contact Us", "Contact", "Home", new { @class = "nav-link" })</li>
+
+                            <li>@Html.ActionLink("Our Menu", "LoadMenu", "Home", new { @class = "nav-link" })</li>
+
+
+
+                            
+                                    <li>@Html.ActionLink("Login", "LoginPage", "Home", new { @class = "nav-link" })</li>
+                                    <li>@Html.ActionLink("Register", "CreateAccount", "Home", new { @class = "nav-link" })</li>
+
+                                    @if (string.IsNullOrEmpty(Session["uname"] as String))
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("My Cart", "ViewUserCart", "Home", new { @class = "nav-link" })</li>
+                                        <li>@Html.ActionLink("My Orders", "LoadMyorders", "Home", new { @class = "nav-link" })</li>
+                                        <li>@Html.ActionLink("Edit Profile", "LoadUserEdit", "Home", new { @class = "nav-link" })</li>
+                                        <li>@Html.ActionLink("Logout", "UserLogout", "Home", new { @class = "nav-link" })</li>
+                                    }
+                                    
+                            
+                        </ul>
+
+                    </nav>
+
+                </div>
+            </div>
+        </header>
+        <div>
+            @RenderBody()
+        </div>
+        <footer id="footer" class="padding-50 dark">
+            <div class="container">
+                <div class="row">
+                    <!-- Our location !-->
+                    <div class="col-md-3 col-sm-6 col-xs-12 our_location">
+                        <h3>Our Location</h3>
+                        <p>Majesty  Head Office:</p>
+                        <span>
+                            63/A Anagarika Dharmapala Road
+                            Matara.
+                        </span>
+                        <p class="mt30">Call for Reservations:<span>(71) 911-4567</span></p>
+                        <p>E-mail: <span>admin@e-burger.com</span> </p>
+                        <ul class="social mt30">
+                            <li><a href="#" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" title="Google+"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" title="Behance"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- End our location -->
+                    <!-- Latest Post !-->
+                    <div class="col-md-3 col-sm-6 col-xs-12 latest_post ">
+                        <h3>Lastest Post</h3>
+                        <div class="media">
+                            <div class="media-left"> <a href="blog_single_image.html"> <img class="media-object" rel="prettyPhoto" src="~/img/post_thumb.jpg" alt="post thumb"> </a> </div>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="blog_single_image.html">Thai Tanic</a></h4>
+                                
+                            </div>
+                        </div>
+                        <!-- End media -->
+                        <div class="media">
+                            <div class="media-left"> <a href="blog_single_image.html"> <img class="media-object" rel="prettyPhoto" src="~/img/post_thumb2.jpg" alt="post thumb"> </a> </div>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="blog_single_image.html">Work & Roll</a></h4>
+                                
+                            </div>
+                        </div>
+                        <!-- End media -->
+                        <div class="media">
+                            <div class="media-left"> <a href="blog_single_image.html"> <img class="media-object" rel="prettyPhoto" src="~/img/post_thumb3.jpg" alt="post thumb"> </a> </div>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="blog_single_image.html">Blog Name</a></h4>
+                                
+                            </div>
+                        </div>
+                        <!-- End media -->
+                    </div>
+                    <!-- End latest Post -->
+                    <!-- Opening time !-->
+                    <div class="col-md-3 col-sm-6 col-xs-12 opening_time">
+                        <h3>Opening Times</h3>
+                        <ul>
+                            <li>
+                                <p>
+                                    Monday
+                                    <time datetime="00:01">1 pm - 10 pm</time>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Tuesday
+                                    <time datetime="00:01">1 pm - 10 pm</time>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Wednesday
+                                    <time datetime="00:01">1 pm - Midnight</time>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Thursday
+                                    <time datetime="00:01">1 pm - 10 pm</time>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Friday
+                                    <time datetime="00:01">1 pm - Midnight</time>
+                                </p>
+                            </li>
+                            <li>
+                                <p>Saturday <span class="label label-default">Closed</span></p>
+                            </li>
+                            <li>
+                                <p>
+                                    Sunday
+                                    <time datetime="00:01">1 pm - 10 pm</time>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End opening time -->
+                    <!-- Flickr !-->
+                    
+                    <!-- End flickr -->
+                </div>
+            </div>
+            <!-- End container -->
+            <!-- Footer logo !-->
+            <div class="footer_logo text-center">
+                <img src="~/img/logz.png" alt="logo">
+                <p> 2021 ALL RIGHT RESERVED. DESIGNED BY <a target="_blank" href="">LMN Pvt Ltd</a></p>
+            </div>
+            <!-- End Footer logo !-->
+        </footer>
+        <a href="#" id="scroll_up"><i class="fa fa-angle-up"></i></a>
+
+    </div>
+</body>
+
+</html>

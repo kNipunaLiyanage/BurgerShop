@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "LoadMyorders";
+    Layout = "~/Views/MyorderLayout.cshtml";
+}
+@model List<BurgerShop.Models.OrderzModel>
+<div id="content">
+    <!-- Carts
+    ============================================= -->
+    <section class="carts text-center padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <!-- Table carts -->
+                    <table class="table table-striped table-responsive table-cart">
+                        <thead>
+                            <tr>
+                                <th>Order Id genarated</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Total Price</th>
+                                <th>Name in full</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            @foreach (var doc in Model)
+                            {
+                                String st =doc.Statusz;
+
+
+                                <tr>
+                                    <td id="@string.Concat(doc.Idorderz,"genaratedid")">@doc.Orderidgenarated</td>
+                                    <td>@doc.Datez</td>
+                                    <td>@doc.Timez</td>
+                                    <td>@doc.Totalpricez</td>
+                                    <td> @doc.Nameinfull </td>
+                                    <td> @doc.Contactz </td>
+                                    <td> @doc.Addressz </td>
+                                    <td> @doc.Cityz </td>
+                                    @if (@st.Equals("Pending"))
+                                    {
+                                    <td> <button class="btn btn-warning">Pending</button></td>
+                                    }
+                                     @if (@st.Equals("Cancelled"))
+                                    {
+
+
+                                    <td> <button class="btn btn-danger">Cancelled</button></td>
+                                    }
+                                    @if (@st.Equals("Active"))
+                                    {
+                                <td> <button class="btn btn-success">Complete</button></td> 
+                                    }
+                                    <td><button class="btn btn-info" onclick="loadSingelOrderDetails(@doc.Idorderz)">View order details</button></td>
+                                    
+
+                                  
+                                </tr>
+
+
+
+                            }
+                        </tbody>
+                    </table>
+                    <!-- End Table carts  -->
+                </div>
+                <!-- Carts content -->
+               
+
+                <!--End Carts content -->
+            </div>
+        </div>
+    </section>
+    <!-- End Carts -->
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/javascripts/libs/plugins.js"></script>
+<!-- JS Plugins -->
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="~/javascripts/libs/modernizr.js"></script>
+<!-- JS Custom Codes -->
+<script src="javascripts/custom/main.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+    function loadSingelOrderDetails(zz) {
+
+        var genaratedid = $('#' + zz + 'genaratedid').text();
+       
+        $.post("setorderId",
+            {
+                orderidgenarated: genaratedid
+
+            },
+            function (data, status) {
+
+                if (data == "ok") {
+                    
+                    window.location = "LoadSingleOrder";
+                } else {
+                    swal("Error!", "Something went wrong", "error");
+                }
+
+            });
+
+
+
+    }
+
+</script>
+

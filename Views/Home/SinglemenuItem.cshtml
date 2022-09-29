@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "SinglemenuItem";
+    Layout = "~/Views/singleMenulayout.cshtml";
+}
+@model List<BurgerShop.Models.ItemModel>
+
+<div id="content">
+    <!-- Single menu
+      ============================================= -->
+    <section class="single-menu text-left padding-100">
+        <div class="container">
+            <div class="row">
+                <!-- Menu thumb slider -->
+                <div class="menu-thumb-slide col-md-6">
+
+
+                    <div class="img-responsive">  <img src="~/img/menu/desert/desert1.jpg" alt=""></div>
+
+
+                </div>
+                <!--End Menu thumb slider -->
+                <!-- Menu Desc -->
+                @foreach (var doc in Model)
+                {
+                    <div class="menu-desc col-md-6">
+                        <h2><label>@doc.Itemname</label><span class="pull-right"><label>LKR @doc.Unitprice</label> </span></h2>
+                        <!-- Rating -->
+                        <!-- End Rating -->
+                        <!-- Tagged -->
+                        <div class="tagged">Type &nbsp &nbsp &nbsp <span class="label instock">@doc.Mealtype</span> </div>
+                        <div class="tagged">Suitable for &nbsp &nbsp &nbsp <span class="label instock">@doc.Mealsuitblefor</span> </div>
+                        <div class="tagged">Size &nbsp &nbsp &nbsp <span class="label instock">@doc.Sizez</span> </div>
+                        <!-- Ends Tagged -->
+                        <!-- Description content -->
+                        <div class="desc-content">
+                            <p>@doc.Descriptionz</p>
+                            <!-- Meta description -->
+                            @if (string.IsNullOrEmpty(Session["uname"] as String))
+                            {
+
+                            }
+                            else
+                            {
+                            <div class="meta-desc">
+                                <button class="shop btn btn-gold" data-toggle="tooltip" title="" data-original-title="Add to Cart" onclick="loadtocart(@doc.Itemid)"><i class="fa fa-shopping-cart"></i></button>
+
+                            </div>
+                            }
+                            <!--End Meta description -->
+                        </div>
+                        <input type="hidden" id="itemnamez" value="@doc.Itemname" />
+                        <input type="hidden" id="itemmealtype" value="@doc.Mealtype" />
+                        <input type="hidden" id="itemmealsuitable" value="@doc.Mealsuitblefor" />
+                        <input type="hidden" id="itemsize" value="@doc.Sizez" />
+                        <input type="hidden" id="itemup" value="@doc.Unitprice" />
+                        <!--End Description content -->
+                    </div>
+                }
+                <!--End Menu Desc -->
+                <!-- tab panel -->
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+
+
+
+    </section>
+    <!-- End single menu -->
+    <!-- Interest
+    ============================================= -->
+    <!-- End Interest -->
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/javascripts/libs/plugins.js"></script>
+<!-- JS Plugins -->
+<script src="~/javascripts/libs/modernizr.js"></script>
+<!-- JS Custom Codes -->
+<script src="javascripts/custom/main.js"></script>
+<script src="~/javascripts/custom/main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+    function loadtocart(iditmz) {
+
+
+
+
+        var idz = iditmz;
+        var itemname = $('#itemnamez').val();
+        var itemmeltype = $('#itemmealtype').val();;
+        var mealsuitable = $('#itemmealsuitable').val();;
+        var sizez = $('#itemsize').val();;
+        var unitp = $('#itemup').val();
+
+
+
+        $.post("USRCART",
+            {
+
+                itemid: idz,
+                itemname: itemname,
+                mealtype: itemmeltype,
+                mealsuitable: mealsuitable,
+                sizez: sizez,
+                unitprice: unitp
+
+            },
+            function (data, status) {
+
+                if (data == "ok") {
+                    swal(itemname + " Added to Your Cart...!", {
+                        icon: "success",
+                    });
+                } else if (data == "lowaty") {
+                    swal("Error!", "No quantity on " + itemname + " on stock", "error");
+                } else {
+                    swal("Error!", "Something went wrong", "error");
+                }
+
+
+            });
+
+
+    }
+
+</script>

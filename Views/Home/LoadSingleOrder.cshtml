@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "LoadSingleOrder";
+    Layout = "~/Views/OrderDetailsLayout.cshtml";
+}
+@model List<BurgerShop.Models.OrderdetailzModel>
+<div id="content">
+    <!-- Carts
+    ============================================= -->
+    <section class="carts text-center padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <!-- Table carts -->
+                    <table class="table table-striped table-responsive table-cart">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Meal Type</th>
+                                <th>Meal Suitable for</th>
+                                <th>Size</th>
+                                <th>Unit Price</th>
+                                <th>Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var doc in Model)
+                            {
+                               
+
+
+                                <tr>
+                                    <td>@doc.Itemname</td>
+                                    <td>@doc.Mealtype</td>
+                                    <td>@doc.Mealsuitable</td>
+                                    <td>@doc.Sizez</td>
+                                    <td>LKR @doc.Unitprice</td>
+                                    <td>@doc.Qty</td>
+                                    
+
+
+
+                                </tr>
+
+
+
+                            }
+                        </tbody>
+                    </table>
+                    <label>Delivery cost to every town is LKR 200</label>
+
+                    <!-- End Table carts  -->
+                </div>
+                <!-- Carts content -->
+                <!--End Carts content -->
+            </div>
+        </div>
+    </section>
+    <!-- End Carts -->
+</div>
+

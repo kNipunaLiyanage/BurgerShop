@@ -1,0 +1,221 @@
+﻿
+@{
+    ViewBag.Title = "LoadUserEdit";
+    Layout = "~/Views/UserEditProfileLayout.cshtml";
+}
+
+@model List<BurgerShop.Models.UserModel>
+<div id="content">
+    <!-- My Account
+    ============================================= -->
+    <section class="myaccount text-left padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <!-- Account -->
+                        <div class="account col-md-6">
+                            <h3>My account</h3>
+                            <div class="form-horizontal">
+                                @foreach (var doc in Model)
+                                {
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        Email Address
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input type="text" disabled class="form-control" value="@doc.Emailz">
+                                    </div>
+                                </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-10">
+                                            Name in Full
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="para1z" value="@doc.Nameinfull">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-10">
+                                            Contact Number
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="para2z" value="@doc.Contactnumber">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-10">
+                                            Address
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="para3z" value="@doc.Addressz">
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-black" onclick="changeDetails()">Update details</button>
+                                    break;
+                                }
+                            </div>
+                        </div>
+                        <!-- End Account -->
+                        <!-- Password -->
+                        <div class="password col-md-6">
+                            <h3>Password Change</h3>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="InputPassword" placeholder="Current Password (leave blank to leave unchanged)">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="newInputPassword" placeholder="New Password (leave blank to leave unchanged)">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="confirmInputPassword" placeholder="Confirm New Password">
+                                    </div>
+                                </div>
+                                <button class="btn btn-black" onclick="changepw()">Change password</button>
+                            </div>
+                        </div>
+                        <!-- End Password -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End myaccount -->
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/javascripts/libs/plugins.js"></script>
+<!-- JS Plugins -->
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="~/javascripts/libs/modernizr.js"></script>
+<!-- JS Custom Codes -->
+<script src="javascripts/custom/main.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+
+    function changepw() {
+
+        var curpw = $('#InputPassword').val();
+        var newpw1 = $('#newInputPassword').val();
+        var newpw2 = $('#confirmInputPassword').val();
+
+        if (curpw == "" || newpw1 == "" || newpw2 == "") {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'please Fill All  Feilds..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+
+        } else if (!(newpw1 == newpw2)) {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'New passwords are not matched..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+
+        } else {
+            $.post("ChangePassword",
+                {
+
+                    currentpw: curpw,
+                    newpw: newpw1
+
+                },
+                function (data, status) {
+
+                    if (data == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Password Changed Sucessfull..!',
+                            showConfirmButton: true,
+                            timer: 1500
+                        });
+
+
+                    } else if (data == "notmatched") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'New Password and current passwords are not matched..!',
+                            showConfirmButton: true,
+                            timer: 1500
+                        });
+                    }
+
+                });
+
+
+
+        }
+
+    }
+
+    function changeDetails() {
+
+        var namez = $('#para1z').val();
+        var contactz = $('#para2z').val();
+        var addressz = $('#para3z').val();
+        if (namez == "" || contactz == "" || addressz == "") {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'please Fill All  Feilds..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+
+        } else if (!(contactz.length == 10)) {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Please Enter Valid phone Number..!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+        } else {
+            $.post("ChangeDetaisUser",
+                {
+
+                    namez: namez,
+                    contactz: contactz,
+                    addressz: addressz
+
+                },
+                function (data, status) {
+
+                    if (data == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Details Updated..!',
+                            showConfirmButton: true,
+                            timer: 1500
+                        });
+                        window.location = "LoadUserEdit";
+
+
+                    } else  {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Something went Wrong..!',
+                            showConfirmButton: true,
+                            timer: 1500
+                        });
+                    }
+
+                });
+
+
+        }
+
+    }
+
+
+</script>
+
